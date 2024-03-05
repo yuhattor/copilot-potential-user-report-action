@@ -1,0 +1,15 @@
+name: "Copilot usage trends against GitHub activity"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  get-summary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5 
+      - name: Run Python
+        run: python main.py
+      - name: Set the summary
+        run: echo "$(cat summary.md)" >> $GITHUB_STEP_SUMMARY
