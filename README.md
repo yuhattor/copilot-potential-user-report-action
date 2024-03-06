@@ -1,6 +1,6 @@
 # Copilot Potential User Report Action
 
-This GitHub Action is designed to uncover the untapped potential within your team by identifying members who could significantly benefit from using GitHub Copilot, yet haven't started. By analyzing the last 180 days of GitHub activity along with Copilot usage patterns, this tool aims to enhance your team's productivity by integrating AI pair programming more comprehensively.
+**Copilot Potential User Report Action** is designed to uncover the untapped potential within your team by identifying members who could significantly benefit from using GitHub Copilot, yet haven't started. By analyzing the last 180 days of GitHub activity along with Copilot usage patterns, this tool aims to enhance your team's productivity by integrating AI pair programming more comprehensively.
 
 **🚀 Features**
 
