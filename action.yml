@@ -1,5 +1,5 @@
 name: 'Copilot Potential User Report Action'
-description: 'Uncover the untapped potential within your team by identifying members who could significantly benefit from using GitHub Copilot, yet have not started'
+description: 'Uncover the untapped potential within your team by identifying members who could benefit from using GitHub Copilot!'
 branding:
   icon: trending-up
   color: blue
