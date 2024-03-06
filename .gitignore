@@ -1,0 +1,6 @@
+.env
+*.csv
+*.json
+
+__pycache__/
+summary.md

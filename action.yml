@@ -1,0 +1,27 @@
+name: 'Copilot Opportunity Finder'
+description: 'This action finds opportunities for Copilot to generate code'
+branding:
+  icon: upload-cloud
+  color: blue
+inputs:
+  pat: 
+    description: 'Personal Access Token'
+    required: true 
+  slug_type: 
+    description: 'Slug Type (enterprise or organization)'
+    required: true 
+    default: 'organization'
+  slug_name:
+    description: 'Enterprises or Organizations Name'
+    required: true 
+    default: 'avocado-corp'
+outputs:
+  summary:
+    description: 'Brief summary of the Copilot opportunities'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    PAT: ${{ inputs.pat }}
+    SLUGTYPE: ${{ inputs.slug_type }}
+    SLUGNAME: ${{ inputs.slug_name }}
