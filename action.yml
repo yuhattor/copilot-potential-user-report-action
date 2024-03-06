@@ -1,7 +1,7 @@
-name: 'Copilot Opportunity Finder'
-description: 'This action finds opportunities for Copilot to generate code'
+name: 'Copilot Potential User Report Action'
+description: 'Let's uncover the untapped potential within your team by identifying members who could significantly benefit from using GitHub Copilot, yet haven't started'
 branding:
-  icon: upload-cloud
+  icon: trending-up
   color: blue
 inputs:
   pat: 
