@@ -155,23 +155,32 @@ class CopilotHelper:
         return pivoted_df
     
     
-    def format_output(self, data):
+    def format_output(self, data, template_file):
         """
         Formats the given data into a markdown table.
 
         Args:
           data (pandas.DataFrame): The data to be formatted.
+          template_file (str): The path to the template file.
 
         Returns:
           str: The formatted markdown table.
         """
         # Read the md from ./template.md
-        with open('template.md', 'r') as file:
-            markdown = file.read()
-            for index, row in data.fillna("").iterrows():
-                if row['Actor'] in ["github-actions[bot]", "dependabot[bot]"]:
-                    continue
-                markdown += (f"| {row['Actor']} | {row['Copilot Organization']} | {row['Pull Request']} | {row['Activation']} | {row['Last Activity']} | {row['Last Activity Editor']} |\n")
+        if template_file == "potential-report-template.md":
+            with open(template_file, 'r') as file:
+                markdown = file.read()
+                for index, row in data.fillna("").iterrows():
+                    if row['Actor'] in ["github-actions[bot]", "dependabot[bot]"]:
+                        continue
+                    markdown += (f"| {row['Actor']} | {row['Copilot Organization']} | {row['Pull Request']} | {row['Activation']} | {row['Last Activity']} | {row['Last Activity Editor']} |\n")
+        elif template_file == "usage-report-template.md":
+            with open(template_file, 'r') as file:
+                markdown = file.read()
+                for index, row in data.fillna("").iterrows():
+                    markdown += (f"| {row['assignee.login']} | {row['Copilot Organization']} | {row['Activation']} | {row['Last Activity']} | {row['Last Activity Editor']} |\n")
+        else:
+            markdown = "Invalid template file"
     
         return markdown
     

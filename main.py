@@ -9,15 +9,10 @@ load_dotenv()
 token = os.environ['PAT']
 slug_name = os.environ['SLUGNAME']
 slug_type = os.environ['SLUGTYPE']
+audit_log_included = os.environ.get('AUDIT_LOG_INCLUDED', 'true')
 
 ch = CopilotHelper(token)
 
-# Get the audit logs
-logs = ch.get_audit_log(slug_name, (slug_type == "enterprise"))
-
-# Get the activity summary
-audit_logs = ch.summarize_logs(logs)
- 
 if slug_type == "enterprise":
     # Get the copilot usage for each organization and concatenate the dataframes
     enterprise_copilot_usage = pd.DataFrame()
@@ -34,7 +29,12 @@ else:
 
 with open('summary.md', 'w') as f:
     if not enterprise_copilot_usage.empty:
-        copilot_activation_trend = pd.merge(audit_logs, enterprise_copilot_usage, how='left', left_on=['Actor'], right_on=['assignee.login'])
-        f.write(ch.format_output(copilot_activation_trend))
+        if audit_log_included == 'true':
+            logs = ch.get_audit_log(slug_name, (slug_type == "enterprise"))
+            audit_logs = ch.summarize_logs(logs)
+            copilot_activation_trend = pd.merge(audit_logs, enterprise_copilot_usage, how='left', left_on=['Actor'], right_on=['assignee.login'])
+            f.write(ch.format_output(copilot_activation_trend, "potential-report-template.md"))
+        else:
+            f.write(ch.format_output(enterprise_copilot_usage, "usage-report-template.md"))
     else:
         f.write("# No Copilot usage found\n")

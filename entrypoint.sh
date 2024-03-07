@@ -14,6 +14,11 @@ then
   echo "No SLUGNAME environment variable supplied"
   exit 1
 fi
+if [ -z "AUDIT_LOG_INCLUDED" ]
+then
+  echo "No AUDIT_LOG_INCLUDED environment variable supplied"
+  exit 1
+fi
 
 cd /app
 python main.py
