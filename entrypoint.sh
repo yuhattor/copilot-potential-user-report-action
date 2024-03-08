@@ -14,9 +14,9 @@ then
   echo "No SLUGNAME environment variable supplied"
   exit 1
 fi
-if [ -z "AUDIT_LOG_INCLUDED" ]
+if [ -z "AUDITLOG" ]
 then
-  echo "No AUDIT_LOG_INCLUDED environment variable supplied"
+  echo "No AUDITLOG environment variable supplied"
   exit 1
 fi
 

@@ -42,7 +42,41 @@ jobs:
           pat: ${{ secrets.PAT }}
           slug_type: <<enterprise or organization>>
           slug_name: <<your enterprise or organization name>>
-      - run: gh issue create --title "Copilot Usage Report" --body "${{ env.SUMMARY}}" --repo $GITHUB_REPOSITORY
+      - run: gh issue create --title "Copilot Usage Report" --body "${{ env.SUMMARY }}" --repo $GITHUB_REPOSITORY
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SUMMARY: ${{ steps.report.outputs.summary }} 
+```
+
+If you want to create an issue with the report, you need to add the following permissions to the GitHub Actions workflow permissions: `Read and write permissions`
+
+**Weekly Copilot Trend Report:**
+
+This action can also be used to generate a weekly Copilot trend report.
+
+If you include audit logs, they will be left-joined based on the audit logs, so users who have not recently submitted a pull request on GitHub.com but are using Copilot will not appear in the report.
+On the other hand, if you genuinely want to see who is using Copilot, you can set audit_log to false to see a list of users.
+
+```yml
+name: "Weekly Issue Report: Copilot Potential User"
+
+on:
+  schedule:
+    - cron: "0 0 * * 1"
+
+jobs:
+  Report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate Copilot Potential User Report
+        uses: yuhattor/copilot-potential-user-report-action@v0.1
+        id: report
+        with:
+          pat: ${{ secrets.PAT }}
+          slug_type: <<enterprise or organization>>
+          slug_name: <<your enterprise or organization name>>
+          audit_log: false
+      - run: gh issue create --title "Copilot Usage Report" --body "${{ env.SUMMARY }}" --repo $GITHUB_REPOSITORY
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SUMMARY: ${{ steps.report.outputs.summary }} 
@@ -99,7 +133,8 @@ You need to create a new GitHub Personal Access Token (PAT) with specific permis
 - **`read:org`**: Needed to access information about your GitHub organization.
 - **`read:enterprise`**: Necessary if you aim to gather data at the enterprise level.
 
-Please make sure that you have the necessary rights for the organization or enterprise you are trying to access. At least, you need to get the Copilot usage data and audit log data.
+> [!IMPORTANT]  
+> Please make sure that you have the necessary rights for the organization or enterprise you are trying to access. At least, you need to get the Copilot usage data and audit log data. If you want to get every organization's report under certain enterprise, you need to be the owner of the each organization. Please check the [GitHub API documentation](https://docs.github.com/en/rest/copilot/copilot-user-management?apiVersion=2022-11-28#get-copilot-seat-information-and-settings-for-an-organization) for more information.
 
 Next, you'll need to secure your newly created PAT within your GitHub repository's secrets:
 

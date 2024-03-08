@@ -15,8 +15,8 @@ inputs:
     description: 'Enterprises or Organizations Name'
     required: true 
     default: 'avocado-corp'
-  audit_log_included:
-    description: 'Include audit log (true or false) - optional, default is true'
+  audit_log:
+    description: 'Include audit log in the result (true or false) - optional, default is true'
     required: false
     default: 'true'
 outputs:
@@ -29,4 +29,4 @@ runs:
     PAT: ${{ inputs.pat }}
     SLUGTYPE: ${{ inputs.slug_type }}
     SLUGNAME: ${{ inputs.slug_name }}
-    AUDIT_LOG_INCLUDED: ${{ inputs.audit_log_included }}
+    AUDITLOG: ${{ inputs.audit_log }}
