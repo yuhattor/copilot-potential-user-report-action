@@ -58,7 +58,7 @@ If you include audit logs, they will be left-joined based on the audit logs, so 
 On the other hand, if you genuinely want to see who is using Copilot, you can set audit_log to false to see a list of users.
 
 ```yml
-name: "Weekly Issue Report: Copilot Potential User"
+name: "Weekly Issue Report: Copilot User"
 
 on:
   schedule:
@@ -68,7 +68,7 @@ jobs:
   Report:
     runs-on: ubuntu-latest
     steps:
-      - name: Generate Copilot Potential User Report
+      - name: Generate Copilot User Report
         uses: yuhattor/copilot-potential-user-report-action@v0.1
         id: report
         with:
